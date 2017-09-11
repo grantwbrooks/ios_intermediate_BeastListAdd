@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDelegate {
 
     var tasks = ["Exercise for 30 minutes", "Wireframe for some project", "Do laundry"]
     
@@ -33,6 +33,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         tableView.dataSource = self
+        tableView.delegate = self
 
     }
 
@@ -40,9 +41,15 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Section: \(indexPath.section) and Row: \(indexPath.row)")
+        tasks.remove(at: indexPath.row)
+        tableView.reloadData()
+    }
 
 }
+//two ways to add protocols you can do it in an extension here or do it at top next to class, depending on which you do put the funcs in that section
 extension ViewController: UITableViewDataSource {
     // MAKE SURE THESE ARE WITHIN UITableViewDataSource EXTENSION!
     // How many cells are we going to need?
@@ -62,4 +69,6 @@ extension ViewController: UITableViewDataSource {
         return cell
     }
 }
+
+
 
